@@ -13,7 +13,7 @@ yarn dev
 
 ```
 
-Abra [http://localhost:3000](http://localhost:3000) no seu navegador e veja o 
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador e veja o resultado.
 
 ## Qual foi a maior dificuldade que você enfrentou ao realizar o teste?
  - O desafio em si foi interessante pois contou com consumo de API'S diferentes, sendo uma privada e outra pública.
