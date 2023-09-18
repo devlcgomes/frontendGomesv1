@@ -1,6 +1,6 @@
 "use client";
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
 
 interface CepData {
   bairro: string;
@@ -11,33 +11,33 @@ interface CepData {
 }
 
 const SearchByStreet: React.FC = () => {
-  const [nomeRua, setNomeRua] = useState("");
+  const [street, setStreet] = useState("");
   const [data, setData] = useState<CepData | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setNomeRua(event.target.value);
+    setStreet(event.target.value);
   };
 
   const buscarCep = async () => {
     try {
-      if (!nomeRua) {
+      if (!street) {
         throw new Error("Digite o CEP");
       }
 
       setIsLoading(true);
       const response = await axios.get(
-        `https://viacep.com.br/ws/${nomeRua}/json/`
+        `https://viacep.com.br/ws/${street}/json/`
       );
 
-      const data: CepData = response.data;
+      const responseData: CepData = response.data;
 
-      if (!data.cep) {
+      if (!responseData.cep) {
         throw new Error("CEP não encontrado");
       }
 
-      setData(data);
+      setData(responseData);
     } catch (error) {
       setError(error.message ?? "Erro ao buscar CEP");
     } finally {
@@ -46,53 +46,64 @@ const SearchByStreet: React.FC = () => {
   };
 
   return (
-    <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        await buscarCep();
-      }}
-      className="p-6"
-    >
-      <h2>Buscar CEP por Nome de Rua</h2>
-      <input
-        type="text"
-        placeholder="Digite o CEP"
-        value={nomeRua}
-        onChange={handleInputChange}
-        className="my-2 border border-purple-500 rounded-md p-2"
-      />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-t from-gradient-primary to-gradient-secondary">
+      <div className="bg-white rounded-lg py-10 w-full max-w-xl ">
+        <form
+          onSubmit={async (e) => {
+            e.preventDefault();
+            await buscarCep();
+          }}
+          className="p-6 flex flex-col"
+        >
+          <h2 className="mb-4 text-center">Informe o CEP desejado:</h2>
+          <div className="flex flex-col lg:flex-row items-stretch  lg:items-center">
+            <input
+              type="text"
+              placeholder="Digite o CEP"
+              value={street}
+              onChange={handleInputChange}
+              className="my-2 border border-gray-300 rounded-md p-2"
+            />
+            <button
+              className={`mt-2 lg:mt-0 lg:ml-4 inline-flex items-center px-4 py-2 lg:h-full font-semibold leading-6 text-sm shadow rounded-md text-white bg-gray-600 hover:bg-gray-300 transition ease-in-out duration-150`}
+              onClick={buscarCep}
+            >
+              {isLoading ? "Carregando..." : "Buscar CEP"}
+            </button>
+          </div>
 
+          {!!error && <p className="text-gray-300 mt-2 text-center">{error}</p>}
+
+          {!!data && (
+            <div className="mt-6">
+              <hr />
+
+              <p>
+                <strong>CEP:</strong> {data.cep}
+              </p>
+
+              <p>
+                <strong>Bairro:</strong> {data.bairro}
+              </p>
+
+              <p>
+                <strong>Localidade:</strong> {data.localidade}
+              </p>
+
+              <p>
+                <strong>Logradouro:</strong> {data.logradouro}
+              </p>
+            </div>
+          )}
+        </form>
+      </div>
       <button
-        className="mx-4 inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-purple-500 hover:bg-purple-400 transition ease-in-out duration-150"
-        onClick={buscarCep}
+        className="p-2 bg-gray-800 text-white rounded-md mt-6"
+        onClick={() => window.history.back()}
       >
-        {isLoading ? "Carregando..." : "Buscar CEP"}
+        Voltar
       </button>
-
-      {!!error && <p className="text-red-500">{error}</p>}
-
-      {!!data && (
-        <div>
-          <hr className="my-4" />
-
-          <p>
-            <strong>CEP:</strong> {data.cep}
-          </p>
-
-          <p>
-            <strong>Bairro:</strong> {data.bairro}
-          </p>
-
-          <p>
-            <strong>Localidade:</strong> {data.localidade}
-          </p>
-
-          <p>
-            <strong>Logradouro:</strong> {data.logradouro}
-          </p>
-        </div>
-      )}
-    </form>
+    </div>
   );
 };
 

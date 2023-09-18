@@ -42,9 +42,9 @@ const Contato = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gradient-to-t from-gradient-primary to-gradient-secondary">
+    <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-t from-gradient-primary to-gradient-secondary">
       <div className="shadow-lg p-6 bg-white rounded-lg">
-        <h1 className="text-2xl font-bold mb-4">Entre em contato conosco</h1>
+        <h1 className="text-2xl font-bold mb-4">Assine e fique por dentro!</h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
           <div className="mb-4">
             <label htmlFor="nome" className="block mb-1">
@@ -88,7 +88,7 @@ const Contato = () => {
 
           <div className="mb-4">
             <label htmlFor="arquivo" className="block mb-1">
-              Envie um arquivo PDF:
+              Anexe um documento pessoal (.pdf):
             </label>
             <input
               type="file"
@@ -111,6 +111,14 @@ const Contato = () => {
             Enviar
           </button>
         </form>
+      </div>
+      <div className="">
+        <button
+          className="p-2 bg-gray-800 text-white rounded-md mt-6"
+          onClick={() => window.history.back()}
+        >
+          Voltar
+        </button>
       </div>
     </div>
   );

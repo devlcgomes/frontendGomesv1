@@ -3,16 +3,16 @@ import React from "react";
 
 let navContent = [
   {
-    name: "Página Inicial",
-    href: "/",
+    name: "Consulta CEP",
+    href: "/cep",
   },
   {
-    name: "Serviços",
-    href: "/about",
+    name: "E-Clima",
+    href: "/weather",
   },
   {
-    name: "Contato",
-    href: "/contact",
+    name: "News",
+    href: "/form",
   },
 ];
 
@@ -86,7 +86,7 @@ export default function page() {
                 É fácil! Basta acessar o nosso formulário e já estará dentro!
               </p>
               <Link
-                className="bg-purple-300 text-purple-500 p-2 mt-4 rounded-md"
+                className="bg-green-200 text-green-500 p-2 mt-4 rounded-md"
                 href="/form"
               >
                 Assine agora!

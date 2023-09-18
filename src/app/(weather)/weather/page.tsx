@@ -117,18 +117,24 @@ const Clima = () => {
   const degreesString = Math.abs(degrees).toString().slice(0, 2);
 
   return (
-    <div className=" flex items-center justify-center  w-screen h-screen  bg-gradient-to-t from-gradient-primary to-gradient-secondary">
-      <div className=" shadow-lg flex justify-center  mx-auto bg-bg-weather rounded-lg ">
-        <div className=" p-6  bg-white">
-          <p className="text-gray-300 mb-4">E-Clima</p>
-          <Image src="/sun.jpeg" width={180} height={180} alt="" />
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-t from-gradient-primary to-gradient-secondary">
+      <div className="shadow-lg mx-auto bg-bg-weather rounded-lg flex flex-col lg:flex-row w-full max-w-2xl overflow-hidden">
+        <div className="p-6 bg-white w-full md:w-1/2 lg:w-2/5">
+          <h2 className="text-gray-300 mb-4">E-Clima</h2>
+          <Image
+            src="/sun.jpeg"
+            width={180}
+            height={180}
+            alt=""
+            className="border"
+          />
           <h2 className="text-4xl"> {`${degreesString}ºC`}</h2>
           <p className="text-gray-300 pt-4 pb-4">{date}</p>
           <hr className="mb-4" />
           <h3 className="text-gray-300">Você está em:</h3>
           <p className="mt-2 text-lg">{city}</p>
         </div>
-        <div className=" p-4 ">
+        <div className="p-4 w-full md:w-1/2 lg:w-4/5 ">
           <div className="  flex">
             <nav className="flex-1 flex items-center">
               <ul>
@@ -148,7 +154,7 @@ const Clima = () => {
               />
             </div>
           </div>
-          <div className="  pb-4 flex items-center gap-4  ">
+          <div className="pb-4 flex items-center gap-4   ">
             <input
               className=" p-2 rounded-md border-2 text-gray-800"
               type="text"
@@ -164,9 +170,9 @@ const Clima = () => {
               Buscar
             </button>
           </div>
-          <div className=" pt-6 ">
+          <div className=" pt-6   ">
             <h3 className="font-bold">Detalhes de hoje</h3>
-            <div className=" flex gap-6 items-start   pt-6">
+            <div className=" flex gap-6 items-start   pt-6  max-lg:flex-col max-lg:items-center">
               <div className=" w-40 bg-white rounded-lg p-2 flex flex-col gap-4 shadow-lg">
                 <p className="text-gray-300">Vento</p>
                 <p className="text-xl font-bold">{`${windSpeed} Km/h`}</p>
@@ -206,6 +212,12 @@ const Clima = () => {
           </div>
         </div>
       </div>
+      <button
+        className="p-2 bg-gray-800 text-white rounded-md mt-6"
+        onClick={() => window.history.back()}
+      >
+        Voltar
+      </button>
     </div>
   );
 };
